@@ -26,10 +26,7 @@ const navigationItems = [
     title: "Profil",
     icon: Users,
     href: "/profile",
-    items: [
-      { title: "Edit Profil", href: "/profile/edit" },
-      { title: "Bio Data", href: "/profile/bio" },
-    ],
+    items: [],
   },
 ];
 

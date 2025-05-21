@@ -22,7 +22,6 @@ model User {
   gender         Gender
   role           Role     @default(mahasiswa)
   address        String?
-  department     String?
   studyProgram   String?
   profilePicture String?
   createdAt      DateTime @default(now())
@@ -43,14 +42,27 @@ enum Gender {
 }
 
 model Portfolio {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  docsUrl     String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id        String            @id @default(uuid())
+  title     String
+  level     PortfolioLevel
+  category  PortfolioCategory
+  docsUrl   String?
+  date      DateTime
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
 
   // Foreign key and relation to user
   userId String
   user   User   @relation(fields: [userId], references: [id])
+}
+
+enum PortfolioLevel {
+  universitas
+  nasional
+  regional
+}
+
+enum PortfolioCategory {
+  kegiatan
+  prestasi
 }

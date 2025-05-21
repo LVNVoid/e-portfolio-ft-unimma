@@ -14,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 // Definisikan tipe data Portfolio
 export type Portfolio = {
@@ -22,6 +23,12 @@ export type Portfolio = {
   level: "nasional" | "universitas" | "regional";
   category: "prestasi" | "kegiatan";
   date: Date;
+  user: {
+    id: string;
+    name: string | null;
+    email: string;
+    studyProgram: string | null;
+  };
 };
 
 export const columns: ColumnDef<Portfolio>[] = [
@@ -46,6 +53,14 @@ export const columns: ColumnDef<Portfolio>[] = [
     ),
     enableSorting: false,
     enableHiding: false,
+  },
+  {
+    accessorKey: "user.name",
+    header: "Nama",
+    cell: ({ row }) => {
+      const user = row.original.user;
+      return <div>{user?.name || "-"}</div>;
+    },
   },
   {
     accessorKey: "title",
@@ -97,8 +112,8 @@ export const columns: ColumnDef<Portfolio>[] = [
       );
     },
     cell: ({ row }) => {
-      const date = row.getValue("date") as Date;
-      return <div>{format(date, "PPP")}</div>;
+      const date = new Date(row.getValue("date")); // pastikan ini adalah objek Date
+      return <div>{format(date, "PPP", { locale: id })}</div>;
     },
   },
   {

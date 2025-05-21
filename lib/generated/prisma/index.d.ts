@@ -43,6 +43,23 @@ export const Gender: {
 
 export type Gender = (typeof Gender)[keyof typeof Gender]
 
+
+export const PortfolioLevel: {
+  universitas: 'universitas',
+  nasional: 'nasional',
+  regional: 'regional'
+};
+
+export type PortfolioLevel = (typeof PortfolioLevel)[keyof typeof PortfolioLevel]
+
+
+export const PortfolioCategory: {
+  kegiatan: 'kegiatan',
+  prestasi: 'prestasi'
+};
+
+export type PortfolioCategory = (typeof PortfolioCategory)[keyof typeof PortfolioCategory]
+
 }
 
 export type Role = $Enums.Role
@@ -52,6 +69,14 @@ export const Role: typeof $Enums.Role
 export type Gender = $Enums.Gender
 
 export const Gender: typeof $Enums.Gender
+
+export type PortfolioLevel = $Enums.PortfolioLevel
+
+export const PortfolioLevel: typeof $Enums.PortfolioLevel
+
+export type PortfolioCategory = $Enums.PortfolioCategory
+
+export const PortfolioCategory: typeof $Enums.PortfolioCategory
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1037,7 +1062,6 @@ export namespace Prisma {
     gender: $Enums.Gender | null
     role: $Enums.Role | null
     address: string | null
-    department: string | null
     studyProgram: string | null
     profilePicture: string | null
     createdAt: Date | null
@@ -1052,7 +1076,6 @@ export namespace Prisma {
     gender: $Enums.Gender | null
     role: $Enums.Role | null
     address: string | null
-    department: string | null
     studyProgram: string | null
     profilePicture: string | null
     createdAt: Date | null
@@ -1067,7 +1090,6 @@ export namespace Prisma {
     gender: number
     role: number
     address: number
-    department: number
     studyProgram: number
     profilePicture: number
     createdAt: number
@@ -1084,7 +1106,6 @@ export namespace Prisma {
     gender?: true
     role?: true
     address?: true
-    department?: true
     studyProgram?: true
     profilePicture?: true
     createdAt?: true
@@ -1099,7 +1120,6 @@ export namespace Prisma {
     gender?: true
     role?: true
     address?: true
-    department?: true
     studyProgram?: true
     profilePicture?: true
     createdAt?: true
@@ -1114,7 +1134,6 @@ export namespace Prisma {
     gender?: true
     role?: true
     address?: true
-    department?: true
     studyProgram?: true
     profilePicture?: true
     createdAt?: true
@@ -1202,7 +1221,6 @@ export namespace Prisma {
     gender: $Enums.Gender
     role: $Enums.Role
     address: string | null
-    department: string | null
     studyProgram: string | null
     profilePicture: string | null
     createdAt: Date
@@ -1234,7 +1252,6 @@ export namespace Prisma {
     gender?: boolean
     role?: boolean
     address?: boolean
-    department?: boolean
     studyProgram?: boolean
     profilePicture?: boolean
     createdAt?: boolean
@@ -1251,7 +1268,6 @@ export namespace Prisma {
     gender?: boolean
     role?: boolean
     address?: boolean
-    department?: boolean
     studyProgram?: boolean
     profilePicture?: boolean
     createdAt?: boolean
@@ -1266,7 +1282,6 @@ export namespace Prisma {
     gender?: boolean
     role?: boolean
     address?: boolean
-    department?: boolean
     studyProgram?: boolean
     profilePicture?: boolean
     createdAt?: boolean
@@ -1281,14 +1296,13 @@ export namespace Prisma {
     gender?: boolean
     role?: boolean
     address?: boolean
-    department?: boolean
     studyProgram?: boolean
     profilePicture?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkUserId" | "email" | "name" | "gender" | "role" | "address" | "department" | "studyProgram" | "profilePicture" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "clerkUserId" | "email" | "name" | "gender" | "role" | "address" | "studyProgram" | "profilePicture" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     portfolios?: boolean | User$portfoliosArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1309,7 +1323,6 @@ export namespace Prisma {
       gender: $Enums.Gender
       role: $Enums.Role
       address: string | null
-      department: string | null
       studyProgram: string | null
       profilePicture: string | null
       createdAt: Date
@@ -1745,7 +1758,6 @@ export namespace Prisma {
     readonly gender: FieldRef<"User", 'Gender'>
     readonly role: FieldRef<"User", 'Role'>
     readonly address: FieldRef<"User", 'String'>
-    readonly department: FieldRef<"User", 'String'>
     readonly studyProgram: FieldRef<"User", 'String'>
     readonly profilePicture: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
@@ -2193,8 +2205,10 @@ export namespace Prisma {
   export type PortfolioMinAggregateOutputType = {
     id: string | null
     title: string | null
-    description: string | null
+    level: $Enums.PortfolioLevel | null
+    category: $Enums.PortfolioCategory | null
     docsUrl: string | null
+    date: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
@@ -2203,8 +2217,10 @@ export namespace Prisma {
   export type PortfolioMaxAggregateOutputType = {
     id: string | null
     title: string | null
-    description: string | null
+    level: $Enums.PortfolioLevel | null
+    category: $Enums.PortfolioCategory | null
     docsUrl: string | null
+    date: Date | null
     createdAt: Date | null
     updatedAt: Date | null
     userId: string | null
@@ -2213,8 +2229,10 @@ export namespace Prisma {
   export type PortfolioCountAggregateOutputType = {
     id: number
     title: number
-    description: number
+    level: number
+    category: number
     docsUrl: number
+    date: number
     createdAt: number
     updatedAt: number
     userId: number
@@ -2225,8 +2243,10 @@ export namespace Prisma {
   export type PortfolioMinAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    level?: true
+    category?: true
     docsUrl?: true
+    date?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
@@ -2235,8 +2255,10 @@ export namespace Prisma {
   export type PortfolioMaxAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    level?: true
+    category?: true
     docsUrl?: true
+    date?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
@@ -2245,8 +2267,10 @@ export namespace Prisma {
   export type PortfolioCountAggregateInputType = {
     id?: true
     title?: true
-    description?: true
+    level?: true
+    category?: true
     docsUrl?: true
+    date?: true
     createdAt?: true
     updatedAt?: true
     userId?: true
@@ -2328,8 +2352,10 @@ export namespace Prisma {
   export type PortfolioGroupByOutputType = {
     id: string
     title: string
-    description: string | null
+    level: $Enums.PortfolioLevel
+    category: $Enums.PortfolioCategory
     docsUrl: string | null
+    date: Date
     createdAt: Date
     updatedAt: Date
     userId: string
@@ -2355,8 +2381,10 @@ export namespace Prisma {
   export type PortfolioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    level?: boolean
+    category?: boolean
     docsUrl?: boolean
+    date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
@@ -2366,8 +2394,10 @@ export namespace Prisma {
   export type PortfolioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    level?: boolean
+    category?: boolean
     docsUrl?: boolean
+    date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
@@ -2377,8 +2407,10 @@ export namespace Prisma {
   export type PortfolioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
-    description?: boolean
+    level?: boolean
+    category?: boolean
     docsUrl?: boolean
+    date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
@@ -2388,14 +2420,16 @@ export namespace Prisma {
   export type PortfolioSelectScalar = {
     id?: boolean
     title?: boolean
-    description?: boolean
+    level?: boolean
+    category?: boolean
     docsUrl?: boolean
+    date?: boolean
     createdAt?: boolean
     updatedAt?: boolean
     userId?: boolean
   }
 
-  export type PortfolioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "docsUrl" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["portfolio"]>
+  export type PortfolioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "level" | "category" | "docsUrl" | "date" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["portfolio"]>
   export type PortfolioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2414,8 +2448,10 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
-      description: string | null
+      level: $Enums.PortfolioLevel
+      category: $Enums.PortfolioCategory
       docsUrl: string | null
+      date: Date
       createdAt: Date
       updatedAt: Date
       userId: string
@@ -2845,8 +2881,10 @@ export namespace Prisma {
   interface PortfolioFieldRefs {
     readonly id: FieldRef<"Portfolio", 'String'>
     readonly title: FieldRef<"Portfolio", 'String'>
-    readonly description: FieldRef<"Portfolio", 'String'>
+    readonly level: FieldRef<"Portfolio", 'PortfolioLevel'>
+    readonly category: FieldRef<"Portfolio", 'PortfolioCategory'>
     readonly docsUrl: FieldRef<"Portfolio", 'String'>
+    readonly date: FieldRef<"Portfolio", 'DateTime'>
     readonly createdAt: FieldRef<"Portfolio", 'DateTime'>
     readonly updatedAt: FieldRef<"Portfolio", 'DateTime'>
     readonly userId: FieldRef<"Portfolio", 'String'>
@@ -3286,7 +3324,6 @@ export namespace Prisma {
     gender: 'gender',
     role: 'role',
     address: 'address',
-    department: 'department',
     studyProgram: 'studyProgram',
     profilePicture: 'profilePicture',
     createdAt: 'createdAt',
@@ -3299,8 +3336,10 @@ export namespace Prisma {
   export const PortfolioScalarFieldEnum: {
     id: 'id',
     title: 'title',
-    description: 'description',
+    level: 'level',
+    category: 'category',
     docsUrl: 'docsUrl',
+    date: 'date',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
     userId: 'userId'
@@ -3395,6 +3434,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'PortfolioLevel'
+   */
+  export type EnumPortfolioLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PortfolioLevel'>
+    
+
+
+  /**
+   * Reference to a field of type 'PortfolioLevel[]'
+   */
+  export type ListEnumPortfolioLevelFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PortfolioLevel[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'PortfolioCategory'
+   */
+  export type EnumPortfolioCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PortfolioCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'PortfolioCategory[]'
+   */
+  export type ListEnumPortfolioCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PortfolioCategory[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -3422,7 +3489,6 @@ export namespace Prisma {
     gender?: EnumGenderFilter<"User"> | $Enums.Gender
     role?: EnumRoleFilter<"User"> | $Enums.Role
     address?: StringNullableFilter<"User"> | string | null
-    department?: StringNullableFilter<"User"> | string | null
     studyProgram?: StringNullableFilter<"User"> | string | null
     profilePicture?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -3438,7 +3504,6 @@ export namespace Prisma {
     gender?: SortOrder
     role?: SortOrder
     address?: SortOrderInput | SortOrder
-    department?: SortOrderInput | SortOrder
     studyProgram?: SortOrderInput | SortOrder
     profilePicture?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -3457,7 +3522,6 @@ export namespace Prisma {
     gender?: EnumGenderFilter<"User"> | $Enums.Gender
     role?: EnumRoleFilter<"User"> | $Enums.Role
     address?: StringNullableFilter<"User"> | string | null
-    department?: StringNullableFilter<"User"> | string | null
     studyProgram?: StringNullableFilter<"User"> | string | null
     profilePicture?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
@@ -3473,7 +3537,6 @@ export namespace Prisma {
     gender?: SortOrder
     role?: SortOrder
     address?: SortOrderInput | SortOrder
-    department?: SortOrderInput | SortOrder
     studyProgram?: SortOrderInput | SortOrder
     profilePicture?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -3494,7 +3557,6 @@ export namespace Prisma {
     gender?: EnumGenderWithAggregatesFilter<"User"> | $Enums.Gender
     role?: EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
     address?: StringNullableWithAggregatesFilter<"User"> | string | null
-    department?: StringNullableWithAggregatesFilter<"User"> | string | null
     studyProgram?: StringNullableWithAggregatesFilter<"User"> | string | null
     profilePicture?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -3507,8 +3569,10 @@ export namespace Prisma {
     NOT?: PortfolioWhereInput | PortfolioWhereInput[]
     id?: StringFilter<"Portfolio"> | string
     title?: StringFilter<"Portfolio"> | string
-    description?: StringNullableFilter<"Portfolio"> | string | null
+    level?: EnumPortfolioLevelFilter<"Portfolio"> | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFilter<"Portfolio"> | $Enums.PortfolioCategory
     docsUrl?: StringNullableFilter<"Portfolio"> | string | null
+    date?: DateTimeFilter<"Portfolio"> | Date | string
     createdAt?: DateTimeFilter<"Portfolio"> | Date | string
     updatedAt?: DateTimeFilter<"Portfolio"> | Date | string
     userId?: StringFilter<"Portfolio"> | string
@@ -3518,8 +3582,10 @@ export namespace Prisma {
   export type PortfolioOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrderInput | SortOrder
+    level?: SortOrder
+    category?: SortOrder
     docsUrl?: SortOrderInput | SortOrder
+    date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -3532,8 +3598,10 @@ export namespace Prisma {
     OR?: PortfolioWhereInput[]
     NOT?: PortfolioWhereInput | PortfolioWhereInput[]
     title?: StringFilter<"Portfolio"> | string
-    description?: StringNullableFilter<"Portfolio"> | string | null
+    level?: EnumPortfolioLevelFilter<"Portfolio"> | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFilter<"Portfolio"> | $Enums.PortfolioCategory
     docsUrl?: StringNullableFilter<"Portfolio"> | string | null
+    date?: DateTimeFilter<"Portfolio"> | Date | string
     createdAt?: DateTimeFilter<"Portfolio"> | Date | string
     updatedAt?: DateTimeFilter<"Portfolio"> | Date | string
     userId?: StringFilter<"Portfolio"> | string
@@ -3543,8 +3611,10 @@ export namespace Prisma {
   export type PortfolioOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrderInput | SortOrder
+    level?: SortOrder
+    category?: SortOrder
     docsUrl?: SortOrderInput | SortOrder
+    date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -3559,8 +3629,10 @@ export namespace Prisma {
     NOT?: PortfolioScalarWhereWithAggregatesInput | PortfolioScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Portfolio"> | string
     title?: StringWithAggregatesFilter<"Portfolio"> | string
-    description?: StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+    level?: EnumPortfolioLevelWithAggregatesFilter<"Portfolio"> | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryWithAggregatesFilter<"Portfolio"> | $Enums.PortfolioCategory
     docsUrl?: StringNullableWithAggregatesFilter<"Portfolio"> | string | null
+    date?: DateTimeWithAggregatesFilter<"Portfolio"> | Date | string
     createdAt?: DateTimeWithAggregatesFilter<"Portfolio"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Portfolio"> | Date | string
     userId?: StringWithAggregatesFilter<"Portfolio"> | string
@@ -3574,7 +3646,6 @@ export namespace Prisma {
     gender: $Enums.Gender
     role?: $Enums.Role
     address?: string | null
-    department?: string | null
     studyProgram?: string | null
     profilePicture?: string | null
     createdAt?: Date | string
@@ -3590,7 +3661,6 @@ export namespace Prisma {
     gender: $Enums.Gender
     role?: $Enums.Role
     address?: string | null
-    department?: string | null
     studyProgram?: string | null
     profilePicture?: string | null
     createdAt?: Date | string
@@ -3606,7 +3676,6 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     address?: NullableStringFieldUpdateOperationsInput | string | null
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     studyProgram?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3622,7 +3691,6 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     address?: NullableStringFieldUpdateOperationsInput | string | null
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     studyProgram?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3638,7 +3706,6 @@ export namespace Prisma {
     gender: $Enums.Gender
     role?: $Enums.Role
     address?: string | null
-    department?: string | null
     studyProgram?: string | null
     profilePicture?: string | null
     createdAt?: Date | string
@@ -3653,7 +3720,6 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     address?: NullableStringFieldUpdateOperationsInput | string | null
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     studyProgram?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3668,7 +3734,6 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     address?: NullableStringFieldUpdateOperationsInput | string | null
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     studyProgram?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3678,8 +3743,10 @@ export namespace Prisma {
   export type PortfolioCreateInput = {
     id?: string
     title: string
-    description?: string | null
+    level: $Enums.PortfolioLevel
+    category: $Enums.PortfolioCategory
     docsUrl?: string | null
+    date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutPortfoliosInput
@@ -3688,8 +3755,10 @@ export namespace Prisma {
   export type PortfolioUncheckedCreateInput = {
     id?: string
     title: string
-    description?: string | null
+    level: $Enums.PortfolioLevel
+    category: $Enums.PortfolioCategory
     docsUrl?: string | null
+    date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
@@ -3698,8 +3767,10 @@ export namespace Prisma {
   export type PortfolioUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPortfoliosNestedInput
@@ -3708,8 +3779,10 @@ export namespace Prisma {
   export type PortfolioUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -3718,8 +3791,10 @@ export namespace Prisma {
   export type PortfolioCreateManyInput = {
     id?: string
     title: string
-    description?: string | null
+    level: $Enums.PortfolioLevel
+    category: $Enums.PortfolioCategory
     docsUrl?: string | null
+    date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
     userId: string
@@ -3728,8 +3803,10 @@ export namespace Prisma {
   export type PortfolioUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -3737,8 +3814,10 @@ export namespace Prisma {
   export type PortfolioUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: StringFieldUpdateOperationsInput | string
@@ -3822,7 +3901,6 @@ export namespace Prisma {
     gender?: SortOrder
     role?: SortOrder
     address?: SortOrder
-    department?: SortOrder
     studyProgram?: SortOrder
     profilePicture?: SortOrder
     createdAt?: SortOrder
@@ -3837,7 +3915,6 @@ export namespace Prisma {
     gender?: SortOrder
     role?: SortOrder
     address?: SortOrder
-    department?: SortOrder
     studyProgram?: SortOrder
     profilePicture?: SortOrder
     createdAt?: SortOrder
@@ -3852,7 +3929,6 @@ export namespace Prisma {
     gender?: SortOrder
     role?: SortOrder
     address?: SortOrder
-    department?: SortOrder
     studyProgram?: SortOrder
     profilePicture?: SortOrder
     createdAt?: SortOrder
@@ -3929,6 +4005,20 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumPortfolioLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.PortfolioLevel | EnumPortfolioLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.PortfolioLevel[] | ListEnumPortfolioLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PortfolioLevel[] | ListEnumPortfolioLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumPortfolioLevelFilter<$PrismaModel> | $Enums.PortfolioLevel
+  }
+
+  export type EnumPortfolioCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PortfolioCategory | EnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PortfolioCategory[] | ListEnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PortfolioCategory[] | ListEnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPortfolioCategoryFilter<$PrismaModel> | $Enums.PortfolioCategory
+  }
+
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -3937,8 +4027,10 @@ export namespace Prisma {
   export type PortfolioCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    level?: SortOrder
+    category?: SortOrder
     docsUrl?: SortOrder
+    date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -3947,8 +4039,10 @@ export namespace Prisma {
   export type PortfolioMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    level?: SortOrder
+    category?: SortOrder
     docsUrl?: SortOrder
+    date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
@@ -3957,11 +4051,33 @@ export namespace Prisma {
   export type PortfolioMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
-    description?: SortOrder
+    level?: SortOrder
+    category?: SortOrder
     docsUrl?: SortOrder
+    date?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     userId?: SortOrder
+  }
+
+  export type EnumPortfolioLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PortfolioLevel | EnumPortfolioLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.PortfolioLevel[] | ListEnumPortfolioLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PortfolioLevel[] | ListEnumPortfolioLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumPortfolioLevelWithAggregatesFilter<$PrismaModel> | $Enums.PortfolioLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPortfolioLevelFilter<$PrismaModel>
+    _max?: NestedEnumPortfolioLevelFilter<$PrismaModel>
+  }
+
+  export type EnumPortfolioCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PortfolioCategory | EnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PortfolioCategory[] | ListEnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PortfolioCategory[] | ListEnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPortfolioCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PortfolioCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPortfolioCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPortfolioCategoryFilter<$PrismaModel>
   }
 
   export type PortfolioCreateNestedManyWithoutUserInput = {
@@ -4030,6 +4146,14 @@ export namespace Prisma {
     create?: XOR<UserCreateWithoutPortfoliosInput, UserUncheckedCreateWithoutPortfoliosInput>
     connectOrCreate?: UserCreateOrConnectWithoutPortfoliosInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type EnumPortfolioLevelFieldUpdateOperationsInput = {
+    set?: $Enums.PortfolioLevel
+  }
+
+  export type EnumPortfolioCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.PortfolioCategory
   }
 
   export type UserUpdateOneRequiredWithoutPortfoliosNestedInput = {
@@ -4183,11 +4307,47 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumPortfolioLevelFilter<$PrismaModel = never> = {
+    equals?: $Enums.PortfolioLevel | EnumPortfolioLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.PortfolioLevel[] | ListEnumPortfolioLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PortfolioLevel[] | ListEnumPortfolioLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumPortfolioLevelFilter<$PrismaModel> | $Enums.PortfolioLevel
+  }
+
+  export type NestedEnumPortfolioCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.PortfolioCategory | EnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PortfolioCategory[] | ListEnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PortfolioCategory[] | ListEnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPortfolioCategoryFilter<$PrismaModel> | $Enums.PortfolioCategory
+  }
+
+  export type NestedEnumPortfolioLevelWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PortfolioLevel | EnumPortfolioLevelFieldRefInput<$PrismaModel>
+    in?: $Enums.PortfolioLevel[] | ListEnumPortfolioLevelFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PortfolioLevel[] | ListEnumPortfolioLevelFieldRefInput<$PrismaModel>
+    not?: NestedEnumPortfolioLevelWithAggregatesFilter<$PrismaModel> | $Enums.PortfolioLevel
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPortfolioLevelFilter<$PrismaModel>
+    _max?: NestedEnumPortfolioLevelFilter<$PrismaModel>
+  }
+
+  export type NestedEnumPortfolioCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.PortfolioCategory | EnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.PortfolioCategory[] | ListEnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.PortfolioCategory[] | ListEnumPortfolioCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumPortfolioCategoryWithAggregatesFilter<$PrismaModel> | $Enums.PortfolioCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumPortfolioCategoryFilter<$PrismaModel>
+    _max?: NestedEnumPortfolioCategoryFilter<$PrismaModel>
+  }
+
   export type PortfolioCreateWithoutUserInput = {
     id?: string
     title: string
-    description?: string | null
+    level: $Enums.PortfolioLevel
+    category: $Enums.PortfolioCategory
     docsUrl?: string | null
+    date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4195,8 +4355,10 @@ export namespace Prisma {
   export type PortfolioUncheckedCreateWithoutUserInput = {
     id?: string
     title: string
-    description?: string | null
+    level: $Enums.PortfolioLevel
+    category: $Enums.PortfolioCategory
     docsUrl?: string | null
+    date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4233,8 +4395,10 @@ export namespace Prisma {
     NOT?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
     id?: StringFilter<"Portfolio"> | string
     title?: StringFilter<"Portfolio"> | string
-    description?: StringNullableFilter<"Portfolio"> | string | null
+    level?: EnumPortfolioLevelFilter<"Portfolio"> | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFilter<"Portfolio"> | $Enums.PortfolioCategory
     docsUrl?: StringNullableFilter<"Portfolio"> | string | null
+    date?: DateTimeFilter<"Portfolio"> | Date | string
     createdAt?: DateTimeFilter<"Portfolio"> | Date | string
     updatedAt?: DateTimeFilter<"Portfolio"> | Date | string
     userId?: StringFilter<"Portfolio"> | string
@@ -4248,7 +4412,6 @@ export namespace Prisma {
     gender: $Enums.Gender
     role?: $Enums.Role
     address?: string | null
-    department?: string | null
     studyProgram?: string | null
     profilePicture?: string | null
     createdAt?: Date | string
@@ -4263,7 +4426,6 @@ export namespace Prisma {
     gender: $Enums.Gender
     role?: $Enums.Role
     address?: string | null
-    department?: string | null
     studyProgram?: string | null
     profilePicture?: string | null
     createdAt?: Date | string
@@ -4294,7 +4456,6 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     address?: NullableStringFieldUpdateOperationsInput | string | null
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     studyProgram?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4309,7 +4470,6 @@ export namespace Prisma {
     gender?: EnumGenderFieldUpdateOperationsInput | $Enums.Gender
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     address?: NullableStringFieldUpdateOperationsInput | string | null
-    department?: NullableStringFieldUpdateOperationsInput | string | null
     studyProgram?: NullableStringFieldUpdateOperationsInput | string | null
     profilePicture?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -4319,8 +4479,10 @@ export namespace Prisma {
   export type PortfolioCreateManyUserInput = {
     id?: string
     title: string
-    description?: string | null
+    level: $Enums.PortfolioLevel
+    category: $Enums.PortfolioCategory
     docsUrl?: string | null
+    date: Date | string
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -4328,8 +4490,10 @@ export namespace Prisma {
   export type PortfolioUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4337,8 +4501,10 @@ export namespace Prisma {
   export type PortfolioUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4346,8 +4512,10 @@ export namespace Prisma {
   export type PortfolioUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
+    level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
+    category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

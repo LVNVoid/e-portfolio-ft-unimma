@@ -26,6 +26,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { DataTablePagination } from "./data-table-pagination";
 import { PlusCircleIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -42,6 +43,8 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = useState({});
+  const [globalFilter, setGlobalFilter] = useState("");
+  const router = useRouter();
 
   const table = useReactTable({
     data,
@@ -51,16 +54,32 @@ export function DataTable<TData, TValue>({
       columnFilters,
       columnVisibility,
       rowSelection,
+      globalFilter,
     },
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     onColumnVisibilityChange: setColumnVisibility,
+    onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    // Custom filter function untuk mencari di title dan user name
+    globalFilterFn: (row, columnId, filterValue) => {
+      const safeValue = (value: unknown): string => {
+        return (value ?? "").toString().toLowerCase();
+      };
+
+      const titleValue = safeValue(row.getValue("title"));
+      const userNameValue = safeValue(row.getValue("user_name")); // Sesuaikan dengan nama kolom user name di data Anda
+      const searchValue = safeValue(filterValue);
+
+      return (
+        titleValue.includes(searchValue) || userNameValue.includes(searchValue)
+      );
+    },
   });
 
   return (
@@ -68,8 +87,12 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">{title}</h2>
         <div className="flex items-center space-x-2">
-          {/* <DataTableViewOptions table={table} /> */}
-          <Button variant={"outline"}>
+          <Button
+            variant={"outline"}
+            onClick={() => {
+              router.push("/portfolio/add");
+            }}
+          >
             <PlusCircleIcon className="mr-2 h-4 w-4" />
             Tambah Portofolio
           </Button>
@@ -77,11 +100,9 @@ export function DataTable<TData, TValue>({
       </div>
       <div className="flex items-center py-4 gap-2">
         <Input
-          placeholder="Cari berdasarkan judul..."
-          value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("title")?.setFilterValue(event.target.value)
-          }
+          placeholder="Cari berdasarkan judul / nama mahasiswa..."
+          value={globalFilter ?? ""}
+          onChange={(event) => setGlobalFilter(event.target.value)}
           className="max-w-sm"
         />
       </div>

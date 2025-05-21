@@ -54,12 +54,12 @@ export default function ProfileModal() {
       setLoading(true);
       await axios.post("/api/users", values);
       toast.success("Biodata berhasil disimpan");
-      form.reset();
-      profileModal.onClose();
     } catch (error) {
       toast.error("Biodata gagal disimpan");
+      console.error(error);
     } finally {
       setLoading(false);
+      profileModal.onClose();
     }
   };
 
