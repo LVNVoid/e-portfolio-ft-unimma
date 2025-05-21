@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { title, level, category, docsUrl } = body;
+    const { title, level, category, docsUrl, date } = body;
 
     if (!title || !level || !category) {
       return NextResponse.json(
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
         title,
         level,
         category,
-        date: new Date(),
+        date,
         docsUrl,
         userId: user.id, // Gunakan id dari database, bukan clerkUserId
       },

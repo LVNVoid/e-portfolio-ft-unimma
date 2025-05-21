@@ -3,12 +3,9 @@
 import { useState } from "react";
 import {
   ColumnDef,
-  ColumnFiltersState,
   SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -40,9 +37,6 @@ export function DataTable<TData, TValue>({
   title = "Portfolio Items",
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState("");
   const router = useRouter();
 
@@ -51,22 +45,13 @@ export function DataTable<TData, TValue>({
     columns,
     state: {
       sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
       globalFilter,
     },
-    enableRowSelection: true,
-    onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    onColumnVisibilityChange: setColumnVisibility,
     onGlobalFilterChange: setGlobalFilter,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
-    // Custom filter function untuk mencari di title dan user name
     globalFilterFn: (row, columnId, filterValue) => {
       const safeValue = (value: unknown): string => {
         return (value ?? "").toString().toLowerCase();
