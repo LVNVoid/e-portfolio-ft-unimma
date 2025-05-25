@@ -20,7 +20,7 @@
 # production
 /build
 
-/public
+/public/uploads
 
 # misc
 .DS_Store
