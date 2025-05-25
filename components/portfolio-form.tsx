@@ -46,11 +46,7 @@ const portfolioFormSchema = z.object({
   date: z.date({
     required_error: "Tanggal diperlukan",
   }),
-  docsUrl: z
-    .string()
-    .url("Harus berupa URL valid")
-    .optional()
-    .or(z.literal("")),
+  docsUrl: z.string().optional().or(z.literal("")),
 });
 
 export function PortfolioForm({ userId }: PortfolioFormProps) {

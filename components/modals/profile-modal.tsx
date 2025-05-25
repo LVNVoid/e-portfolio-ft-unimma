@@ -80,7 +80,7 @@ export default function ProfileModal() {
       const formData = new FormData();
       formData.append("file", file);
 
-      const response = await axios.post("/api/upload", formData, {
+      const response = await axios.post("/api/upload/profile", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
