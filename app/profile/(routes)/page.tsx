@@ -128,7 +128,7 @@ const ProfilePage = async () => {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-muted-foreground block mb-1 flex items-center gap-1">
+                <label className="text-sm font-medium text-muted-foreground mb-1 flex items-center gap-1">
                   <MapPin className="w-4 h-4" />
                   Alamat
                 </label>
@@ -171,7 +171,7 @@ const ProfilePage = async () => {
               </div>
 
               <div>
-                <label className="text-sm font-medium text-muted-foreground block mb-1 flex items-center gap-1">
+                <label className="text-sm font-medium text-muted-foreground mb-1 flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
                   Tanggal Pembuatan Akun
                 </label>

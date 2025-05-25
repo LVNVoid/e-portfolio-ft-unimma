@@ -15,6 +15,15 @@ export default async function EditProfilePage({
 
   const user = await db.user.findUnique({
     where: { id: userId },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      gender: true,
+      address: true,
+      studyProgram: true,
+      profilePicture: true,
+    },
   });
 
   if (!user) return notFound();
@@ -22,14 +31,21 @@ export default async function EditProfilePage({
   const defaultValues = {
     name: user.name || "",
     email: user.email,
-    gender: user.gender,
+    gender: user.gender as "pria" | "wanita",
     address: user.address || "",
     studyProgram: user.studyProgram || "",
+    profilePicture: user.profilePicture || "",
   };
 
   return (
     <div className="container py-10">
-      <h1 className="text-2xl font-bold mb-6">Edit Profil</h1>
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold">Edit Profil</h1>
+        <p className="text-muted-foreground mt-2">
+          Perbarui informasi profil Anda di bawah ini
+        </p>
+      </div>
+
       <EditProfileForm userId={userId} defaultValues={defaultValues} />
     </div>
   );
