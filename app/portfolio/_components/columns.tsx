@@ -114,7 +114,13 @@ export const columns: ColumnDef<Portfolio>[] = [
               Copy ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>View details</DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => {
+                window.location.assign(`/portfolio/${portfolio.id}`);
+              }}
+            >
+              View details
+            </DropdownMenuItem>
             <DropdownMenuItem>Edit</DropdownMenuItem>
             <DropdownMenuItem className="text-red-600">Delete</DropdownMenuItem>
           </DropdownMenuContent>

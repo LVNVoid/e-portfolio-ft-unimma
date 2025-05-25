@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import axios from "axios";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -31,7 +32,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { format } from "date-fns";
-import { CalendarIcon } from "lucide-react";
+import { CalendarIcon, Upload, FileText, X, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "./ui/calendar";
 
@@ -51,6 +52,9 @@ const portfolioFormSchema = z.object({
 
 export function PortfolioForm({ userId }: PortfolioFormProps) {
   const router = useRouter();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
   const form = useForm<z.infer<typeof portfolioFormSchema>>({
     resolver: zodResolver(portfolioFormSchema),
@@ -60,11 +64,107 @@ export function PortfolioForm({ userId }: PortfolioFormProps) {
     },
   });
 
-  async function onSubmit(values: z.infer<typeof portfolioFormSchema>) {
-    console.log(values);
+  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    // Validasi tipe file
+    if (file.type !== "application/pdf") {
+      toast.error("Hanya file PDF yang diizinkan");
+      return;
+    }
+
+    // Validasi ukuran file (max 10MB)
+    const maxSize = 10 * 1024 * 1024; // 10MB
+    if (file.size > maxSize) {
+      toast.error("Ukuran file maksimal 10MB");
+      return;
+    }
+
+    setSelectedFile(file);
+  };
+
+  const handleFileUpload = async () => {
+    if (!selectedFile) return null;
+
+    setIsUploading(true);
+    setUploadProgress(0);
+
     try {
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      // Simulate progress
+      const progressInterval = setInterval(() => {
+        setUploadProgress((prev) => {
+          if (prev >= 90) {
+            clearInterval(progressInterval);
+            return prev;
+          }
+          return prev + 10;
+        });
+      }, 100);
+
+      const response = await axios.post("/api/upload/document", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      clearInterval(progressInterval);
+      setUploadProgress(100);
+
+      if (response.data.success) {
+        toast.success("File berhasil diupload");
+        return response.data.url;
+      } else {
+        throw new Error("Upload failed");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      let errorMessage = "Gagal mengupload file";
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data?.error || errorMessage;
+      }
+      toast.error(errorMessage);
+      return null;
+    } finally {
+      setIsUploading(false);
+      setUploadProgress(0);
+    }
+  };
+
+  const removeSelectedFile = () => {
+    setSelectedFile(null);
+    // Reset the file input
+    const fileInput = document.getElementById(
+      "file-upload"
+    ) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = "";
+    }
+  };
+
+  async function onSubmit(values: z.infer<typeof portfolioFormSchema>) {
+    try {
+      let uploadedFileUrl = "";
+
+      // Upload file jika ada file yang dipilih
+      if (selectedFile) {
+        const fileUrl = await handleFileUpload();
+        if (fileUrl) {
+          uploadedFileUrl = fileUrl;
+        } else {
+          // Jika upload gagal, hentikan proses
+          toast.error("Upload file gagal, silakan coba lagi");
+          return;
+        }
+      }
+
+      // Submit portfolio data
       await axios.post("/api/portfolios", {
         ...values,
+        docsUrl: uploadedFileUrl,
         userId,
       });
 
@@ -83,6 +183,14 @@ export function PortfolioForm({ userId }: PortfolioFormProps) {
       console.error(errorMessage);
     }
   }
+
+  const formatFileSize = (bytes: number) => {
+    if (bytes === 0) return "0 Bytes";
+    const k = 1024;
+    const sizes = ["Bytes", "KB", "MB", "GB"];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
+  };
 
   return (
     <Form {...form}>
@@ -201,21 +309,102 @@ export function PortfolioForm({ userId }: PortfolioFormProps) {
           name="docsUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>URL Dokumen (Opsional)</FormLabel>
+              <FormLabel>Dokumen Portfolio (PDF)</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="https://example.com/sertifikat.pdf"
-                  {...field}
-                  value={field.value || ""}
-                />
+                <div className="space-y-4">
+                  {/* File Upload Section */}
+                  <div className="border-2 border-dashed border-border rounded-lg p-6 transition-colors hover:border-border/80">
+                    {!selectedFile ? (
+                      <div className="text-center">
+                        <Upload className="mx-auto h-12 w-12 text-muted-foreground" />
+                        <div className="mt-4">
+                          <label
+                            htmlFor="file-upload"
+                            className="cursor-pointer rounded-md font-medium text-primary hover:text-primary/90 transition-colors"
+                          >
+                            <span>Upload file PDF</span>
+                            <input
+                              id="file-upload"
+                              name="file-upload"
+                              type="file"
+                              accept=".pdf,application/pdf"
+                              className="sr-only"
+                              onChange={handleFileSelect}
+                            />
+                          </label>
+                          <p className="text-xs text-muted-foreground mt-1">
+                            PDF hingga 10MB
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg border border-border">
+                        <div className="flex items-center space-x-3">
+                          <FileText className="h-8 w-8 text-destructive" />
+                          <div>
+                            <p className="text-sm font-medium text-foreground">
+                              {selectedFile.name}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {formatFileSize(selectedFile.size)}
+                            </p>
+                          </div>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={removeSelectedFile}
+                          disabled={isUploading}
+                          className="hover:bg-destructive/10 hover:text-destructive"
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    )}
+
+                    {/* Upload Progress */}
+                    {isUploading && (
+                      <div className="mt-4">
+                        <div className="flex items-center space-x-2">
+                          <Loader2 className="h-4 w-4 animate-spin text-primary" />
+                          <span className="text-sm text-muted-foreground">
+                            Mengupload... {uploadProgress}%
+                          </span>
+                        </div>
+                        <div className="w-full bg-secondary rounded-full h-2 mt-2 overflow-hidden">
+                          <div
+                            className="bg-primary h-2 rounded-full transition-all duration-300 ease-out"
+                            style={{ width: `${uploadProgress}%` }}
+                          ></div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <p className="text-xs text-muted-foreground">
+                    Upload file PDF untuk melengkapi portfolio Anda
+                  </p>
+                </div>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Menyimpan..." : "Simpan Portfolio"}
+        <Button
+          type="submit"
+          disabled={form.formState.isSubmitting || isUploading}
+          className="w-full"
+        >
+          {form.formState.isSubmitting || isUploading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              {isUploading ? "Mengupload..." : "Menyimpan..."}
+            </>
+          ) : (
+            "Simpan Portfolio"
+          )}
         </Button>
       </form>
     </Form>
