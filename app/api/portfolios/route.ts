@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { title, level, category, docsUrl, date } = body;
+    const { title, description, level, category, docsUrl, date } = body;
 
     if (!title || !level || !category) {
       return NextResponse.json(
@@ -37,6 +37,7 @@ export async function POST(req: Request) {
     const newPortfolio = await db.portfolio.create({
       data: {
         title,
+        description,
         level,
         category,
         date,

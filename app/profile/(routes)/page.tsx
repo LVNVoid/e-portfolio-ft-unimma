@@ -2,7 +2,15 @@ import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { User, Mail, MapPin, Calendar, BookOpen, Shield } from "lucide-react";
+import {
+  User,
+  Mail,
+  MapPin,
+  Calendar,
+  BookOpen,
+  Shield,
+  PenIcon,
+} from "lucide-react";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs/server";
 import { Button } from "@/components/ui/button";
@@ -48,14 +56,14 @@ const ProfilePage = async () => {
   };
 
   return (
-    <div className="container mx-auto bg-background py-8 px-4 sm:px-6 lg:px-8">
+    <div className="container mx-auto">
       <div className="w-full">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">Profile</h1>
           <p className="text-muted-foreground">Kelola informasi profil Anda</p>
         </div>
 
-        <Card className="mb-6">
+        <Card className="mb-6 bg-background">
           <CardHeader className="pb-4">
             <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
               <div className="flex-shrink-0">
@@ -91,7 +99,7 @@ const ProfilePage = async () => {
         </Card>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <Card>
+          <Card className="bg-background">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <User className="w-5 h-5 text-primary" />
@@ -139,7 +147,7 @@ const ProfilePage = async () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-background">
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <BookOpen className="w-5 h-5 text-green-600 dark:text-green-400" />
@@ -189,7 +197,8 @@ const ProfilePage = async () => {
 
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center sm:justify-start">
           <Button>
-            <Link href={`/profile/${profileData.id}/edit`}>Ubah Profil</Link>
+            <PenIcon className="w-4 h-4 mr-2" />
+            <Link href={`/profile/${profileData.id}/edit`}>Edit Profil</Link>
           </Button>
         </div>
       </div>

@@ -2205,6 +2205,7 @@ export namespace Prisma {
   export type PortfolioMinAggregateOutputType = {
     id: string | null
     title: string | null
+    description: string | null
     level: $Enums.PortfolioLevel | null
     category: $Enums.PortfolioCategory | null
     docsUrl: string | null
@@ -2217,6 +2218,7 @@ export namespace Prisma {
   export type PortfolioMaxAggregateOutputType = {
     id: string | null
     title: string | null
+    description: string | null
     level: $Enums.PortfolioLevel | null
     category: $Enums.PortfolioCategory | null
     docsUrl: string | null
@@ -2229,6 +2231,7 @@ export namespace Prisma {
   export type PortfolioCountAggregateOutputType = {
     id: number
     title: number
+    description: number
     level: number
     category: number
     docsUrl: number
@@ -2243,6 +2246,7 @@ export namespace Prisma {
   export type PortfolioMinAggregateInputType = {
     id?: true
     title?: true
+    description?: true
     level?: true
     category?: true
     docsUrl?: true
@@ -2255,6 +2259,7 @@ export namespace Prisma {
   export type PortfolioMaxAggregateInputType = {
     id?: true
     title?: true
+    description?: true
     level?: true
     category?: true
     docsUrl?: true
@@ -2267,6 +2272,7 @@ export namespace Prisma {
   export type PortfolioCountAggregateInputType = {
     id?: true
     title?: true
+    description?: true
     level?: true
     category?: true
     docsUrl?: true
@@ -2352,6 +2358,7 @@ export namespace Prisma {
   export type PortfolioGroupByOutputType = {
     id: string
     title: string
+    description: string
     level: $Enums.PortfolioLevel
     category: $Enums.PortfolioCategory
     docsUrl: string | null
@@ -2381,6 +2388,7 @@ export namespace Prisma {
   export type PortfolioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    description?: boolean
     level?: boolean
     category?: boolean
     docsUrl?: boolean
@@ -2394,6 +2402,7 @@ export namespace Prisma {
   export type PortfolioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    description?: boolean
     level?: boolean
     category?: boolean
     docsUrl?: boolean
@@ -2407,6 +2416,7 @@ export namespace Prisma {
   export type PortfolioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     title?: boolean
+    description?: boolean
     level?: boolean
     category?: boolean
     docsUrl?: boolean
@@ -2420,6 +2430,7 @@ export namespace Prisma {
   export type PortfolioSelectScalar = {
     id?: boolean
     title?: boolean
+    description?: boolean
     level?: boolean
     category?: boolean
     docsUrl?: boolean
@@ -2429,7 +2440,7 @@ export namespace Prisma {
     userId?: boolean
   }
 
-  export type PortfolioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "level" | "category" | "docsUrl" | "date" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["portfolio"]>
+  export type PortfolioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "level" | "category" | "docsUrl" | "date" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["portfolio"]>
   export type PortfolioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2448,6 +2459,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       title: string
+      description: string
       level: $Enums.PortfolioLevel
       category: $Enums.PortfolioCategory
       docsUrl: string | null
@@ -2881,6 +2893,7 @@ export namespace Prisma {
   interface PortfolioFieldRefs {
     readonly id: FieldRef<"Portfolio", 'String'>
     readonly title: FieldRef<"Portfolio", 'String'>
+    readonly description: FieldRef<"Portfolio", 'String'>
     readonly level: FieldRef<"Portfolio", 'PortfolioLevel'>
     readonly category: FieldRef<"Portfolio", 'PortfolioCategory'>
     readonly docsUrl: FieldRef<"Portfolio", 'String'>
@@ -3336,6 +3349,7 @@ export namespace Prisma {
   export const PortfolioScalarFieldEnum: {
     id: 'id',
     title: 'title',
+    description: 'description',
     level: 'level',
     category: 'category',
     docsUrl: 'docsUrl',
@@ -3569,6 +3583,7 @@ export namespace Prisma {
     NOT?: PortfolioWhereInput | PortfolioWhereInput[]
     id?: StringFilter<"Portfolio"> | string
     title?: StringFilter<"Portfolio"> | string
+    description?: StringFilter<"Portfolio"> | string
     level?: EnumPortfolioLevelFilter<"Portfolio"> | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFilter<"Portfolio"> | $Enums.PortfolioCategory
     docsUrl?: StringNullableFilter<"Portfolio"> | string | null
@@ -3582,6 +3597,7 @@ export namespace Prisma {
   export type PortfolioOrderByWithRelationInput = {
     id?: SortOrder
     title?: SortOrder
+    description?: SortOrder
     level?: SortOrder
     category?: SortOrder
     docsUrl?: SortOrderInput | SortOrder
@@ -3598,6 +3614,7 @@ export namespace Prisma {
     OR?: PortfolioWhereInput[]
     NOT?: PortfolioWhereInput | PortfolioWhereInput[]
     title?: StringFilter<"Portfolio"> | string
+    description?: StringFilter<"Portfolio"> | string
     level?: EnumPortfolioLevelFilter<"Portfolio"> | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFilter<"Portfolio"> | $Enums.PortfolioCategory
     docsUrl?: StringNullableFilter<"Portfolio"> | string | null
@@ -3611,6 +3628,7 @@ export namespace Prisma {
   export type PortfolioOrderByWithAggregationInput = {
     id?: SortOrder
     title?: SortOrder
+    description?: SortOrder
     level?: SortOrder
     category?: SortOrder
     docsUrl?: SortOrderInput | SortOrder
@@ -3629,6 +3647,7 @@ export namespace Prisma {
     NOT?: PortfolioScalarWhereWithAggregatesInput | PortfolioScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Portfolio"> | string
     title?: StringWithAggregatesFilter<"Portfolio"> | string
+    description?: StringWithAggregatesFilter<"Portfolio"> | string
     level?: EnumPortfolioLevelWithAggregatesFilter<"Portfolio"> | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryWithAggregatesFilter<"Portfolio"> | $Enums.PortfolioCategory
     docsUrl?: StringNullableWithAggregatesFilter<"Portfolio"> | string | null
@@ -3743,6 +3762,7 @@ export namespace Prisma {
   export type PortfolioCreateInput = {
     id?: string
     title: string
+    description: string
     level: $Enums.PortfolioLevel
     category: $Enums.PortfolioCategory
     docsUrl?: string | null
@@ -3755,6 +3775,7 @@ export namespace Prisma {
   export type PortfolioUncheckedCreateInput = {
     id?: string
     title: string
+    description: string
     level: $Enums.PortfolioLevel
     category: $Enums.PortfolioCategory
     docsUrl?: string | null
@@ -3767,6 +3788,7 @@ export namespace Prisma {
   export type PortfolioUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -3779,6 +3801,7 @@ export namespace Prisma {
   export type PortfolioUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -3791,6 +3814,7 @@ export namespace Prisma {
   export type PortfolioCreateManyInput = {
     id?: string
     title: string
+    description: string
     level: $Enums.PortfolioLevel
     category: $Enums.PortfolioCategory
     docsUrl?: string | null
@@ -3803,6 +3827,7 @@ export namespace Prisma {
   export type PortfolioUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -3814,6 +3839,7 @@ export namespace Prisma {
   export type PortfolioUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4027,6 +4053,7 @@ export namespace Prisma {
   export type PortfolioCountOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    description?: SortOrder
     level?: SortOrder
     category?: SortOrder
     docsUrl?: SortOrder
@@ -4039,6 +4066,7 @@ export namespace Prisma {
   export type PortfolioMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    description?: SortOrder
     level?: SortOrder
     category?: SortOrder
     docsUrl?: SortOrder
@@ -4051,6 +4079,7 @@ export namespace Prisma {
   export type PortfolioMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
+    description?: SortOrder
     level?: SortOrder
     category?: SortOrder
     docsUrl?: SortOrder
@@ -4344,6 +4373,7 @@ export namespace Prisma {
   export type PortfolioCreateWithoutUserInput = {
     id?: string
     title: string
+    description: string
     level: $Enums.PortfolioLevel
     category: $Enums.PortfolioCategory
     docsUrl?: string | null
@@ -4355,6 +4385,7 @@ export namespace Prisma {
   export type PortfolioUncheckedCreateWithoutUserInput = {
     id?: string
     title: string
+    description: string
     level: $Enums.PortfolioLevel
     category: $Enums.PortfolioCategory
     docsUrl?: string | null
@@ -4395,6 +4426,7 @@ export namespace Prisma {
     NOT?: PortfolioScalarWhereInput | PortfolioScalarWhereInput[]
     id?: StringFilter<"Portfolio"> | string
     title?: StringFilter<"Portfolio"> | string
+    description?: StringFilter<"Portfolio"> | string
     level?: EnumPortfolioLevelFilter<"Portfolio"> | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFilter<"Portfolio"> | $Enums.PortfolioCategory
     docsUrl?: StringNullableFilter<"Portfolio"> | string | null
@@ -4479,6 +4511,7 @@ export namespace Prisma {
   export type PortfolioCreateManyUserInput = {
     id?: string
     title: string
+    description: string
     level: $Enums.PortfolioLevel
     category: $Enums.PortfolioCategory
     docsUrl?: string | null
@@ -4490,6 +4523,7 @@ export namespace Prisma {
   export type PortfolioUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4501,6 +4535,7 @@ export namespace Prisma {
   export type PortfolioUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -4512,6 +4547,7 @@ export namespace Prisma {
   export type PortfolioUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
     level?: EnumPortfolioLevelFieldUpdateOperationsInput | $Enums.PortfolioLevel
     category?: EnumPortfolioCategoryFieldUpdateOperationsInput | $Enums.PortfolioCategory
     docsUrl?: NullableStringFieldUpdateOperationsInput | string | null

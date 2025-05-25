@@ -23,6 +23,7 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 interface PortfolioDetailProps {
   id: string;
   title: string;
+  description: string;
   level: "internasional" | "nasional" | "regional" | "universitas";
   category: "prestasi" | "kegiatan";
   docsUrl: string;
@@ -135,9 +136,7 @@ const PortfolioDetail: React.FC<PortfolioDetailComponentProps> = ({
                   </h1>
 
                   <p className="text-lg text-muted-foreground mb-6 leading-relaxed max-w-3xl">
-                    Portfolio {portfolio.category} tingkat {portfolio.level}{" "}
-                    yang telah berhasil dicapai dan didokumentasikan dengan baik
-                    untuk keperluan akademik dan profesional.
+                    {portfolio.description}
                   </p>
 
                   <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">

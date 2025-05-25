@@ -10,6 +10,7 @@ interface DetailPortfolioPageProps {
 type Portfolio = {
   id: string;
   title: string;
+  description: string;
   level: "internasional" | "nasional" | "regional" | "universitas";
   category: "prestasi" | "kegiatan";
   docsUrl: string | null;
@@ -28,6 +29,7 @@ type Portfolio = {
 const formatPortfolioForDetail = (portfolio: Portfolio) => ({
   id: portfolio.id,
   title: portfolio.title,
+  description: portfolio.description,
   level: portfolio.level,
   category: portfolio.category,
   docsUrl: portfolio.docsUrl ?? "",

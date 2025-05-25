@@ -35,6 +35,7 @@ import { format } from "date-fns";
 import { CalendarIcon, Upload, FileText, X, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Calendar } from "./ui/calendar";
+import { Textarea } from "./ui/textarea";
 
 interface PortfolioFormProps {
   userId: string;
@@ -42,6 +43,7 @@ interface PortfolioFormProps {
 
 const portfolioFormSchema = z.object({
   title: z.string().min(3, "Judul minimal 3 karakter").max(100),
+  description: z.string().optional(),
   level: z.nativeEnum(PortfolioLevel),
   category: z.nativeEnum(PortfolioCategory),
   date: z.date({
@@ -204,6 +206,23 @@ export function PortfolioForm({ userId }: PortfolioFormProps) {
               <FormControl>
                 <Input
                   placeholder="Contoh: Juara 1 Hackathon Nasional"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Deskripsi</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Deskripsi singkat tentang portfolio"
                   {...field}
                 />
               </FormControl>

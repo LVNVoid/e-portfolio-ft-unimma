@@ -42,14 +42,15 @@ enum Gender {
 }
 
 model Portfolio {
-  id        String            @id @default(uuid())
-  title     String
-  level     PortfolioLevel
-  category  PortfolioCategory
-  docsUrl   String?
-  date      DateTime
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
+  id          String            @id @default(uuid())
+  title       String
+  description String
+  level       PortfolioLevel
+  category    PortfolioCategory
+  docsUrl     String?
+  date        DateTime
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
 
   // Foreign key and relation to user
   userId String
