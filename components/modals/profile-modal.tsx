@@ -31,7 +31,7 @@ const formSchema = z.object({
   gender: z.enum(["pria", "wanita"]),
   address: z.string().min(1, { message: "Alamat wajib diisi" }),
   studyProgram: z.string().min(1, { message: "Program studi wajib diisi" }),
-  profilePicture: z.string().url({ message: "Harus berupa URL yang valid" }),
+  profilePicture: z.string(),
 });
 
 export default function ProfileModal() {
@@ -145,9 +145,13 @@ export default function ProfileModal() {
               name="profilePicture"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>URL Foto Profil</FormLabel>
+                  <FormLabel>Upload Foto Profil</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://..." {...field} />
+                    <Input
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) => field.onChange(e.target.files?.[0])}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
